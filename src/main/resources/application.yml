@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: text-to-image-api
+  mvc:
+    problemdetails:
+      enabled: true
+server:
+  address: 127.0.0.1
+  port: 8080
+rendering:
+  font-size: 32
+  margin: 20
+  max-width: 1200
+  max-code-points: 2000
+  max-pixels: 4000000
+  background: '#FFFFFF'

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Probar TextToImageAPI</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 32px auto; padding: 0 20px; color: #242424; }
+    h1 { font-size: 1.7rem; }
+    label { display: block; margin: 18px 0 6px; font-weight: 600; }
+    textarea, input[type="text"] { box-sizing: border-box; width: 100%; padding: 10px; font: inherit; border: 1px solid #888; border-radius: 4px; }
+    textarea { min-height: 140px; resize: vertical; }
+    .color-option { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
+    .color-option label { display: inline; margin: 0; }
+    input[type="color"] { width: 56px; height: 36px; }
+    button { padding: 10px 18px; font: inherit; cursor: pointer; }
+    button:disabled { cursor: wait; }
+    .hint { margin: 6px 0; color: #555; font-size: .9rem; }
+    #error { padding: 14px; background: #fff0f0; border: 1px solid #b42318; color: #8a1c13; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .preview { overflow: auto; border: 1px solid #ccc; background: #f5f5f5; padding: 12px; }
+    #image { display: block; max-width: 100%; height: auto; }
+    dl { display: grid; grid-template-columns: 80px 1fr; gap: 8px 16px; }
+    dt { font-weight: 600; }
+    dd { margin: 0; overflow-wrap: anywhere; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <h1>Texto a imagen PNG</h1>
+  <p>Introduce un texto para probar la API. Puedes elegir una fuente y un color, o dejar que se seleccionen aleatoriamente.</p>
+
+  <form id="image-form">
+    <label for="text">Texto</label>
+    <textarea id="text" name="text" required placeholder="Hola, mundo"></textarea>
+
+    <label for="font">Fuente (opcional)</label>
+    <input id="font" name="font" type="text" placeholder="Por ejemplo: Arial" aria-describedby="font-hint">
+    <p id="font-hint" class="hint">Déjala vacía para usar una fuente aleatoria disponible en el servidor.</p>
+
+    <div class="color-option">
+      <input id="use-color" type="checkbox">
+      <label for="use-color">Especificar color</label>
+      <input id="color" name="color" type="color" value="#2457c5" aria-label="Color del texto" disabled>
+    </div>
+    <p class="hint">Si no marcas esta opción, la API generará un color aleatorio.</p>
+
+    <button id="submit" type="submit">Generar imagen</button>
+  </form>
+
+  <p id="status" role="status" aria-live="polite"></p>
+  <p id="error" role="alert" hidden></p>
+
+  <section id="result" aria-labelledby="result-title" hidden>
+    <h2 id="result-title">Resultado</h2>
+    <div class="preview"><img id="image" alt="Imagen PNG del texto introducido"></div>
+    <dl>
+      <dt>Fuente</dt><dd id="result-font"></dd>
+      <dt>Color</dt><dd id="result-color"></dd>
+      <dt>Ancho</dt><dd id="result-width"></dd>
+      <dt>Alto</dt><dd id="result-height"></dd>
+    </dl>
+  </section>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
